@@ -145,17 +145,6 @@ public class Gpu
         result += ($"Ціна на релізі: {LaunchPrice} $\n");
 
         return result;
-        /*
-        Console.WriteLine($"Модель: {ModelName}");
-        Console.WriteLine($"GPU Clock: {GpuClock} МГц");
-        Console.WriteLine($"Архітектура: {Architecture}");
-        Console.WriteLine($"Пам'ять: {MemorySize} ГБ");
-        Console.WriteLine($"Розрядність шини: {MemoryBusWidth} біт");
-        Console.WriteLine($"Дата випуску: {ReleaseDate.ToShortDateString()}");
-        Console.WriteLine($"Ціна на релізі: {LaunchPrice} $");
-        if (InBasket) { Console.WriteLine("Відеокарта знаходиться в кошику"); }
-        else { Console.WriteLine("Відеокарта не знаходиться в кошику"); }
-        */
     }
 
     public int YearsSinceRelease()
