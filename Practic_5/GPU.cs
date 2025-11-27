@@ -133,8 +133,19 @@ public class Gpu
 
 
     //Публічні методи
-    public void PrintInfo()
+    public string PrintInfo()
     {
+        string result = string.Empty;
+        result += ($"Модель: {ModelName}\n");
+        result += ($"GPU Clock: {GpuClock} МГц\n");
+        result += ($"Архітектура: {Architecture}\n");
+        result += ($"Пам'ять: {MemorySize} ГБ\n");
+        result += ($"Розрядність шини: {MemoryBusWidth} біт\n");
+        result += ($"Дата випуску: {ReleaseDate.ToShortDateString()}\n");
+        result += ($"Ціна на релізі: {LaunchPrice} $\n");
+
+        return result;
+        /*
         Console.WriteLine($"Модель: {ModelName}");
         Console.WriteLine($"GPU Clock: {GpuClock} МГц");
         Console.WriteLine($"Архітектура: {Architecture}");
@@ -144,6 +155,7 @@ public class Gpu
         Console.WriteLine($"Ціна на релізі: {LaunchPrice} $");
         if (InBasket) { Console.WriteLine("Відеокарта знаходиться в кошику"); }
         else { Console.WriteLine("Відеокарта не знаходиться в кошику"); }
+        */
     }
 
     public int YearsSinceRelease()

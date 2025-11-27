@@ -175,8 +175,8 @@ while (true)
                 Console.WriteLine("Список відеокарт:");
                 foreach (var card in gpus)
                 {
-                    card.PrintInfo();
-                    Console.WriteLine("\n");
+                    Console.WriteLine(card.PrintInfo());
+                    Console.Write("\n");
                 }
             }
             break;
@@ -240,7 +240,7 @@ while (true)
                 {
                     foreach (Gpu res in findresults)
                     {
-                        res.PrintInfo();
+                        Console.WriteLine(res.PrintInfo());
                         Console.WriteLine();
                     }
                 }
@@ -274,7 +274,7 @@ while (true)
                 {
                     //Переглянути характеристики
                     case "1":
-                        gpus[0].PrintInfo();
+                        Console.WriteLine(gpus[0].PrintInfo());
                         break;
 
                     //Кількість років з релізу
@@ -442,7 +442,7 @@ while (true)
                         if (Gpu.TryParse(gpu, out testcase))
                         {
                             Console.WriteLine("Результат:");
-                            testcase.PrintInfo();
+                            Console.WriteLine(testcase.PrintInfo());
                             maxCount++;
                         }
                         break;
@@ -501,6 +501,10 @@ static Gpu AddGPU()
     vc.MemorySize = int.Parse(Console.ReadLine());
 
 
+    Console.Write("Введіть розрядність шини (128–2048 біт): ");
+    vc.MemoryBusWidth = short.Parse(Console.ReadLine());
+
+
     DateTime releaseDate;
     Console.Write("Введіть дату випуску: ");
     if (DateTime.TryParse(Console.ReadLine(), out releaseDate))
@@ -511,10 +515,6 @@ static Gpu AddGPU()
     {
         throw new ArgumentException("Дата не коректна!");
     }
-
-
-    Console.Write("Введіть розрядність шини (128–2048 біт): ");
-    vc.MemoryBusWidth = short.Parse(Console.ReadLine());
 
 
     Console.Write("Введіть ціну на релізі (>0$): ");
