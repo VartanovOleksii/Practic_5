@@ -144,6 +144,15 @@ public class Gpu
         result += ($"Дата випуску: {ReleaseDate.ToShortDateString()}\n");
         result += ($"Ціна на релізі: {LaunchPrice} $\n");
 
+        if (InBasket)
+        {
+            result += ("Відеокарта знаходиться в кошику\n");
+        }
+        else
+        {
+            result += ("Відеокарта не знаходиться в кошику\n");
+        }
+
         return result;
     }
 
@@ -157,29 +166,29 @@ public class Gpu
         return selectedDate.Year - ReleaseDate.Year;
     }
 
-    public void AddToBasket()
+    public string AddToBasket()
     {
         if (!InBasket)
         {
             InBasket = true;
-            Console.WriteLine("Відеокарта додана в кошик.");
+            return "Відеокарта додана в кошик.";
         }
         else
         {
-            Console.WriteLine("Відеокарта вже знаходиться в кошику.");
+            return "Відеокарта вже знаходиться в кошику.";
         }
     }
 
-    public void DeleteFromBasket()
+    public string DeleteFromBasket()
     {
         if (InBasket)
         {
             InBasket = false;
-            Console.WriteLine("Відеокарта видалена з кошика.");
+            return "Відеокарта видалена з кошика.";
         }
         else
         {
-            Console.WriteLine("Відеокарти не було в кошику.");
+            return "Відеокарти не було в кошику.";
         }
     }
 

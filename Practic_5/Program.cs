@@ -310,12 +310,12 @@ while (true)
 
                     //Додати до кошику
                     case "4":
-                        gpus[0].AddToBasket();
+                        Console.WriteLine(gpus[0].AddToBasket());
                         break;
 
                     //Видалити з кошику
                     case "5":
-                        gpus[0].DeleteFromBasket();
+                        Console.WriteLine(gpus[0].DeleteFromBasket());
                         break;
 
                     //Назад
