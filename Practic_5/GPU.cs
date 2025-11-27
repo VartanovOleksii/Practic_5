@@ -203,7 +203,6 @@ public class Gpu
     //Статичний конструктор
     static Gpu()
     {
-        Console.WriteLine("Використовується статичний конструктор.");
         Discount = 0.15m;
     }
 
@@ -211,18 +210,16 @@ public class Gpu
     //Конструктори
     public Gpu() : this(DefName, DefClock, DefArchitecture, DefMemory, DateTime.MinValue, DefBus, DefPrice)
     {
-        Console.WriteLine("Використовується конструктор без параметрів.");
+        
     }
 
     public Gpu(string modelName, GPUArchitecture architecture, decimal launchPrice) : this(modelName, DefClock, architecture, DefMemory, DateTime.MinValue, DefBus, launchPrice)
     {
-        Console.WriteLine("Використовується конструктор з параметрами: назва, архітектура, ціна на релізі.");
+        
     }
 
     public Gpu(string modelName, int gpuClock, GPUArchitecture architecture, int memorySize, DateTime releaseDate, short memoryBusWidth, decimal launchPrice)
     {
-        Console.WriteLine("Використовується конструктор зі всіма параметрами.");
-
         ModelName = modelName;
         GpuClock = gpuClock;
         Architecture = architecture;
