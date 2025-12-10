@@ -279,7 +279,10 @@ while (true)
 
                     //Кількість років з релізу
                     case "2":
-                        Console.WriteLine($"Пройшло {gpus[0].YearsSinceRelease()} років");
+                        if (gpus[0].YearsSinceRelease() == -1)
+                            Console.WriteLine("Задана дата знаходиться у майбутньому");
+                        else
+                            Console.WriteLine($"Пройшло {gpus[0].YearsSinceRelease()} років");
                         break;
 
                     //Кількість років від релізу до заданої дати

@@ -163,6 +163,8 @@ public class Gpu
 
     public int YearsSinceRelease(DateTime selectedDate)
     {
+        if (selectedDate.Year - ReleaseDate.Year < 0)
+            return -1;
         return selectedDate.Year - ReleaseDate.Year;
     }
 
