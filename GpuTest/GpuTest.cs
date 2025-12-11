@@ -106,5 +106,23 @@
             Assert.AreEqual(expected, actual);
             Assert.IsFalse(gpu.InBasket);
         }
+        
+        [TestMethod]
+        public void PriceWithDiscount()
+        {
+            //Arrange
+            decimal price = 100.0m;
+            decimal discount = 0.2m;
+            decimal expected = 80.0m;
+
+            Gpu.Discount = discount;
+            gpu.LaunchPrice = price;
+
+            //Act
+            decimal actual = Gpu.PriceWithDiscount(price);
+
+            //Assert
+            Assert.AreEqual(expected, actual, 0.01m);
+        }
     }
 }
