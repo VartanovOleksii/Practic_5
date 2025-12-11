@@ -76,5 +76,35 @@
             Assert.AreEqual(expected, actual);
             Assert.IsTrue(gpu.InBasket);
         }
+
+        [TestMethod]
+        public void DeleteFromBasket_was_in_basket()
+        {
+            //Arrange
+            gpu.AddToBasket();
+            string expected = "Відеокарта видалена з кошика.";
+
+            //Act
+            string actual = gpu.DeleteFromBasket();
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+            Assert.IsFalse(gpu.InBasket);
+        }
+
+        [TestMethod]
+        public void DeleteFromBasket_was_not_in_basket()
+        {
+            //Arrange
+            gpu.DeleteFromBasket();
+            string expected = "Відеокарти не було в кошику.";
+
+            //Act
+            string actual = gpu.DeleteFromBasket();
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+            Assert.IsFalse(gpu.InBasket);
+        }
     }
 }
