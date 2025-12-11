@@ -16,7 +16,22 @@
         {
             gpu = null;
         }
-        
+
+        [TestMethod]
+        public void YearsSinceRelease_date_after_release()
+        {
+            //Arrange
+            gpu.ReleaseDate = DateTime.Parse("18.05.2020");
+            DateTime selected_date = DateTime.Parse("03.05.2024");
+            int expected = 4;
+
+            //Act
+            int actual = gpu.YearsSinceRelease(selected_date);
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
         [TestMethod]
         public void YearsSinceRelease_date_before_release()
         {
@@ -30,6 +45,36 @@
 
             //Assert
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void AddToBasket_was_in_basket()
+        {
+            //Arrange
+            gpu.AddToBasket();
+            string expected = "Відеокарта вже знаходиться в кошику.";
+
+            //Act
+            string actual = gpu.AddToBasket();
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+            Assert.IsTrue(gpu.InBasket);
+        }
+
+        [TestMethod]
+        public void AddToBasket_was_not_in_basket()
+        {
+            //Arrange
+            gpu.DeleteFromBasket();
+            string expected = "Відеокарта додана в кошик.";
+
+            //Act
+            string actual = gpu.AddToBasket();
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+            Assert.IsTrue(gpu.InBasket);
         }
     }
 }
