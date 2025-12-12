@@ -156,5 +156,35 @@ namespace GpuTest
             //Assert
             Assert.AreEqual(expected, actual, 0.01m);
         }
+
+        [TestMethod]
+        [DataRow ("")]
+        [DataRow("asd")]
+        [DataRow("asdasdasdaasdasdasdaasdasdasdaasdasdasdaasd")]
+        [DataRow("фівфів")]
+        [DataRow("/asdasd")]
+        public void ModelName_ArgumentException(string name)
+        {
+            //Arrange
+
+            //Act
+
+            //Assert
+            Assert.Throws<ArgumentException>(() => gpu.ModelName = name);
+        }
+
+        [TestMethod]
+        public void ModelName_correct()
+        {
+            //Arrange
+            gpu.ModelName = "Gigabyte GeForce RTX 5060 Ti";
+            string expected = "Gigabyte GeForce RTX 5060 Ti";
+
+            //Act
+            string actual = gpu.ModelName;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
