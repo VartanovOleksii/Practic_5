@@ -1,5 +1,9 @@
-﻿namespace GpuTest
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace GpuTest
 {
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     [TestClass]
     public sealed class GpuTest
     {
@@ -18,7 +22,7 @@
         }
 
         [TestMethod]
-        public void YearsSinceRelease_date_after_release()
+        public void YearsSinceRelease_with_date_selection_date_after_release()
         {
             //Arrange
             gpu.ReleaseDate = DateTime.Parse("18.05.2020");
@@ -33,7 +37,7 @@
         }
 
         [TestMethod]
-        public void YearsSinceRelease_date_before_release()
+        public void YearsSinceRelease_with_date_selection_date_before_release()
         {
             //Arrange
             gpu.ReleaseDate = DateTime.Parse("18.05.2020");
@@ -42,6 +46,20 @@
 
             //Act
             int actual = gpu.YearsSinceRelease(selected_date);
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void YearsSinceRelease()
+        {
+            //Arrange
+            gpu.ReleaseDate = DateTime.Parse("18.05.2020");
+            int expected = DateTime.Now.Year - gpu.ReleaseDate.Year;
+
+            //Act
+            int actual = gpu.YearsSinceRelease();
 
             //Assert
             Assert.AreEqual(expected, actual);
@@ -106,7 +124,21 @@
             Assert.AreEqual(expected, actual);
             Assert.IsFalse(gpu.InBasket);
         }
-        
+
+        [TestMethod]
+        [DataRow (1.2)]
+        [DataRow (-0.2)]
+        public void Discount(double discount_double)
+        {
+            //Arrange
+            decimal discount = (decimal) discount_double;
+
+            //Act
+
+            //Assert
+            Assert.Throws<ArgumentOutOfRangeException>(() => Gpu.Discount = discount);
+        }
+
         [TestMethod]
         public void PriceWithDiscount()
         {

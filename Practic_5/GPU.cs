@@ -125,7 +125,7 @@ public class Gpu
         {
             if (value < 0 || value > 1)
             {
-                throw new ArgumentException("Знижка повинна бути в діапазоні від 0 до 100%.");
+                throw new ArgumentOutOfRangeException("Знижка повинна бути в діапазоні від 0 до 100%.");
             }
             _discount = value;
         }
