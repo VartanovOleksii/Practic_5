@@ -81,6 +81,8 @@ while (true)
                                 {
                                     card = new Gpu();
                                     gpus.Add(card);
+                                    Console.WriteLine("Об'єкт створено\n");
+                                    Console.WriteLine(card.PrintInfo());
                                 }
                                 catch (Exception ex)
                                 {
@@ -99,6 +101,8 @@ while (true)
                                 {
                                     card = new Gpu("GeForce RTX 5060 Ti", GPUArchitecture.Blackwell, 429.99m);
                                     gpus.Add(card);
+                                    Console.WriteLine("Об'єкт створено\n");
+                                    Console.WriteLine(card.PrintInfo());
                                 }
                                 catch (Exception ex)
                                 {
@@ -118,6 +122,8 @@ while (true)
                                     var rDate = new DateTime(2025, 04, 16);
                                     card = new Gpu("GeForce RTX 5060 Ti", 2602, GPUArchitecture.Blackwell, 16, rDate, 128, 429.99m);
                                     gpus.Add(card);
+                                    Console.WriteLine("Об'єкт створено\n");
+                                    Console.WriteLine(card.PrintInfo());
                                 }
                                 catch (Exception ex)
                                 {
