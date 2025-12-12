@@ -112,6 +112,34 @@ namespace GpuTest
         }
 
         [TestMethod]
+        [DataRow(0)]
+        [DataRow(10000)]
+        public void MemoryBusWidth_incorrect_value(int width_int)
+        {
+            //Arrange
+            short width = (short)width_int;
+
+            //Act
+
+            //Assert
+            Assert.Throws<ArgumentException>(() => gpu.MemoryBusWidth = width);
+        }
+
+        [TestMethod]
+        public void MemoryBusWidth_correct()
+        {
+            //Arrange
+            gpu.MemoryBusWidth = 128;
+            int expected = 128;
+
+            //Act
+            int actual = gpu.MemoryBusWidth;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
         [DataRow(-20)]
         [DataRow(0)]
         public void LaunchPrice_less_then_0(double price_double)
