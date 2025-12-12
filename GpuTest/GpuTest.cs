@@ -12,6 +12,7 @@ namespace GpuTest
     {
         private Gpu gpu;
 
+        //Сетап
         [TestInitialize]
         public void Setup()
         {
@@ -24,6 +25,67 @@ namespace GpuTest
             gpu = null;
         }
 
+        //Властивості
+        [TestMethod]
+        [DataRow("")]
+        [DataRow("asd")]
+        [DataRow("asdasdasdaasdasdasdaasdasdasdaasdasdasdaasd")]
+        [DataRow("фівфів")]
+        [DataRow("/asdasd")]
+        public void ModelName_incorrect_name(string name)
+        {
+            //Arrange
+
+            //Act
+
+            //Assert
+            Assert.Throws<ArgumentException>(() => gpu.ModelName = name);
+        }
+
+        [TestMethod]
+        public void ModelName_correct()
+        {
+            //Arrange
+            gpu.ModelName = "Gigabyte GeForce RTX 5060 Ti";
+            string expected = "Gigabyte GeForce RTX 5060 Ti";
+
+            //Act
+            string actual = gpu.ModelName;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        [DataRow(-20)]
+        [DataRow(0)]
+        public void LaunchPrice_less_then_0(double price_double)
+        {
+            //Arrange
+            decimal price = (decimal)price_double;
+
+            //Act
+
+            //Assert
+            Assert.Throws<ArgumentException>(() => gpu.LaunchPrice = price);
+        }
+
+        [TestMethod]
+        public void LaunchPrice_ModelName_correct()
+        {
+            //Arrange
+            decimal price = 399.99m;
+            gpu.LaunchPrice = price;
+            decimal expected = 399.99m;
+
+            //Act
+            decimal actual = gpu.LaunchPrice;
+
+            //Assert
+            Assert.AreEqual(expected, actual, 0.001m);
+        }
+
+        //Метод
         [TestMethod]
         public void YearsSinceRelease_with_date_selection_date_after_release()
         {
@@ -160,64 +222,6 @@ namespace GpuTest
             Assert.AreEqual(expected, actual, 0.001m);
         }
 
-        [TestMethod]
-        [DataRow ("")]
-        [DataRow ("asd")]
-        [DataRow ("asdasdasdaasdasdasdaasdasdasdaasdasdasdaasd")]
-        [DataRow ("фівфів")]
-        [DataRow ("/asdasd")]
-        public void ModelName_incorrect_name(string name)
-        {
-            //Arrange
-
-            //Act
-
-            //Assert
-            Assert.Throws<ArgumentException>(() => gpu.ModelName = name);
-        }
-
-        [TestMethod]
-        public void ModelName_correct()
-        {
-            //Arrange
-            gpu.ModelName = "Gigabyte GeForce RTX 5060 Ti";
-            string expected = "Gigabyte GeForce RTX 5060 Ti";
-
-            //Act
-            string actual = gpu.ModelName;
-
-            //Assert
-            Assert.AreEqual(expected, actual);
-        }
-
-        [TestMethod]
-        [DataRow (-20)]
-        [DataRow (0)]
-        public void LaunchPrice_less_then_0(double price_double)
-        {
-            //Arrange
-            decimal price = (decimal)price_double;
-
-            //Act
-
-            //Assert
-            Assert.Throws<ArgumentException>(() => gpu.LaunchPrice = price);
-        }
-
-        [TestMethod]
-        public void LaunchPrice_ModelName_correct()
-        {
-            //Arrange
-            decimal price = 399.99m;
-            gpu.LaunchPrice = price;
-            decimal expected = 399.99m;
-
-            //Act
-            decimal actual = gpu.LaunchPrice;
-
-            //Assert
-            Assert.AreEqual(expected, actual, 0.001m);
-        }
 
         [TestMethod]
         [DataRow (true)]
