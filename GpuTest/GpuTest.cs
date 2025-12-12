@@ -6,6 +6,7 @@ namespace GpuTest
     using Microsoft.VisualStudio.TestPlatform.ObjectModel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System.ComponentModel;
+    using System.Xml.Linq;
 
     [TestClass]
     public sealed class GpuTest
@@ -51,6 +52,33 @@ namespace GpuTest
 
             //Act
             string actual = gpu.ModelName;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        [DataRow (100)]
+        [DataRow (10000)]
+        public void GpuClock_incorrect_value(int clock)
+        {
+            //Arrange
+
+            //Act
+
+            //Assert
+            Assert.Throws<ArgumentException>(() => gpu.GpuClock = clock);
+        }
+
+        [TestMethod]
+        public void GpuClock_correct()
+        {
+            //Arrange
+            gpu.GpuClock = 2367;
+            int expected = 2367;
+
+            //Act
+            int actual = gpu.GpuClock;
 
             //Assert
             Assert.AreEqual(expected, actual);
