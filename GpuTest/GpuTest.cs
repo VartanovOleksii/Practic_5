@@ -263,5 +263,22 @@ namespace GpuTest
             //Assert
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void ToString()
+        {
+            //Arrange
+            gpu.ModelName = "Gigabyte GeForce RTX 5060 Ti";
+            gpu.Architecture = GPUArchitecture.Blackwell;
+            gpu.LaunchPrice = 470;
+
+            string expected = "Gigabyte GeForce RTX 5060 Ti;Blackwell;470";
+
+            //Act
+            string actual = gpu.ToString();
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
