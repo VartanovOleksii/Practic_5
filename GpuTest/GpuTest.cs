@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 
 namespace GpuTest
 {
@@ -214,6 +215,53 @@ namespace GpuTest
 
             //Assert
             Assert.AreEqual(expected, actual, 0.001m);
+        }
+
+        [TestMethod]
+        [DataRow (true)]
+        [DataRow (false)]
+        public void PrintInfo(bool in_basket)
+        {
+            //Arrange
+            gpu.ModelName = "Gigabyte GeForce RTX 5060 Ti";
+            gpu.GpuClock = 2647;
+            gpu.Architecture = GPUArchitecture.Blackwell;
+            gpu.MemorySize = 16;
+            gpu.MemoryBusWidth = 128;
+            gpu.ReleaseDate = DateTime.Parse("01.04.2025");
+            gpu.LaunchPrice = 470;
+
+            if (in_basket)
+            {
+                gpu.AddToBasket();
+            }
+            else
+            {
+                gpu.DeleteFromBasket();
+            }
+
+            string expected = "Модель: Gigabyte GeForce RTX 5060 Ti\n"
+                              + "GPU Clock: 2647 МГц\n"
+                              + "Архітектура: Blackwell\n"
+                              + "Пам'ять: 16 ГБ\n"
+                              + "Розрядність шини: 128 біт\n"
+                              + "Дата випуску: 01.04.2025\n"
+                              + "Ціна на релізі: 470 $\n";
+
+            if (in_basket)
+            {
+                expected += "Відеокарта знаходиться в кошику\n";
+            }
+            else
+            {
+                expected += "Відеокарта не знаходиться в кошику\n";
+            }
+
+            //Act
+            string actual = gpu.PrintInfo();
+
+            //Assert
+            Assert.AreEqual(expected, actual);
         }
     }
 }
