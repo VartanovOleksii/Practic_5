@@ -154,15 +154,15 @@ namespace GpuTest
             decimal actual = Gpu.PriceWithDiscount(price);
 
             //Assert
-            Assert.AreEqual(expected, actual, 0.01m);
+            Assert.AreEqual(expected, actual, 0.001m);
         }
 
         [TestMethod]
         [DataRow ("")]
-        [DataRow("asd")]
-        [DataRow("asdasdasdaasdasdasdaasdasdasdaasdasdasdaasd")]
-        [DataRow("фівфів")]
-        [DataRow("/asdasd")]
+        [DataRow ("asd")]
+        [DataRow ("asdasdasdaasdasdasdaasdasdasdaasdasdasdaasd")]
+        [DataRow ("фівфів")]
+        [DataRow ("/asdasd")]
         public void ModelName_ArgumentException(string name)
         {
             //Arrange
@@ -185,6 +185,35 @@ namespace GpuTest
 
             //Assert
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        [DataRow (-20)]
+        [DataRow (0)]
+        public void LaunchPrice_ArgumentException(double price_double)
+        {
+            //Arrange
+            decimal price = (decimal)price_double;
+
+            //Act
+
+            //Assert
+            Assert.Throws<ArgumentException>(() => gpu.LaunchPrice = price);
+        }
+
+        [TestMethod]
+        public void LaunchPrice_ModelName_correct()
+        {
+            //Arrange
+            decimal price = 399.99m;
+            gpu.LaunchPrice = price;
+            decimal expected = 399.99m;
+
+            //Act
+            decimal actual = gpu.LaunchPrice;
+
+            //Assert
+            Assert.AreEqual(expected, actual, 0.001m);
         }
     }
 }
