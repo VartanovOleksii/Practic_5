@@ -4,6 +4,7 @@ using System.Reflection;
 namespace GpuTest
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using System.ComponentModel;
 
     [TestClass]
     public sealed class GpuTest
@@ -164,7 +165,7 @@ namespace GpuTest
         [DataRow ("asdasdasdaasdasdasdaasdasdasdaasdasdasdaasd")]
         [DataRow ("фівфів")]
         [DataRow ("/asdasd")]
-        public void ModelName_ArgumentException(string name)
+        public void ModelName_incorrect_name(string name)
         {
             //Arrange
 
@@ -191,7 +192,7 @@ namespace GpuTest
         [TestMethod]
         [DataRow (-20)]
         [DataRow (0)]
-        public void LaunchPrice_ArgumentException(double price_double)
+        public void LaunchPrice_less_then_0(double price_double)
         {
             //Arrange
             decimal price = (decimal)price_double;
@@ -279,6 +280,94 @@ namespace GpuTest
 
             //Assert
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Parse_empty_string()
+        {
+            //Arrange
+            string s = null;
+
+            //Act
+
+            //Assert
+            Assert.Throws<ArgumentNullException>(() => Gpu.Parse(s));
+        }
+
+        [TestMethod]
+        [DataRow ("asdasd")]
+        [DataRow ("asdasd;asdasd")]
+        [DataRow ("asdasd;asdasd;asdasd;asdasd")]
+        public void Parse_incorrect_format(string s)
+        {
+            //Arrange
+
+            //Act
+
+            //Assert
+            Assert.Throws< FormatException>(() => Gpu.Parse(s));
+        }
+
+        [TestMethod]
+        [DataRow("asdasd;;100")]
+        [DataRow("asdasd;asdasd;100")]
+        [DataRow("asdasd;20;100")]
+        public void Parse_incorrect_architecture(string s)
+        {
+            //Arrange
+
+            //Act
+
+            //Assert
+            Assert.Throws<InvalidEnumArgumentException>(() => Gpu.Parse(s));
+        }
+
+        [TestMethod]
+        [DataRow("asdasd;Turing;")]
+        [DataRow("asdasd;Turing;asd")]
+        public void Parse_incorrect_price(string s)
+        {
+            //Arrange
+
+            //Act
+
+            //Assert
+            Assert.Throws<ArgumentException>(() => Gpu.Parse(s));
+        }
+
+        [TestMethod]
+        [DataRow(";Turing;100")]
+        [DataRow("asd;Turing;100")]
+        [DataRow("asdasdasdaasdasdasdaasdasdasdaasdasdasdaasd;Turing;100")]
+        [DataRow("фівфів;Turing;100")]
+        [DataRow("/asdasd;Turing;100")]
+        public void Parse_incorrect_name(string s)
+        {
+            //Arrange
+
+            //Act
+
+            //Assert
+            Assert.Throws<ArgumentException>(() => Gpu.Parse(s));
+        }
+
+        [TestMethod]
+        public void Parse_correct()
+        {
+            //Arrange
+            string s = "Gigabyte GeForce RTX 5060 Ti;Blackwell;470";
+            Gpu expected = new Gpu();
+            expected.ModelName = "Gigabyte GeForce RTX 5060 Ti";
+            expected.Architecture = GPUArchitecture.Blackwell;
+            expected.LaunchPrice = 470;
+
+            //Act
+            Gpu actual = Gpu.Parse(s);
+
+            //Assert
+            Assert.AreEqual(expected.ModelName, actual.ModelName);
+            Assert.AreEqual(expected.Architecture, actual.Architecture);
+            Assert.AreEqual(expected.LaunchPrice, actual.LaunchPrice);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.ComponentModel;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 public class Gpu
@@ -64,7 +65,7 @@ public class Gpu
         {
             if (!Enum.IsDefined(typeof(GPUArchitecture), value))
             {
-                throw new ArgumentException("Архітектура не коректна.");
+                throw new InvalidEnumArgumentException("Архітектура не коректна.");
             }
             _architecture = value;
         }
@@ -254,10 +255,10 @@ public class Gpu
         decimal price;
 
         if (!Enum.TryParse<GPUArchitecture>(part[1], true, out arch))
-            throw new FormatException("Архітектура не коректна.");
+            throw new InvalidEnumArgumentException("Архітектура не коректна.");
 
         if (!decimal.TryParse(part[2], out price))
-            throw new FormatException("Значення ціни не коректне.");
+            throw new ArgumentException("Значення ціни не коректне.");
 
         return new Gpu(part[0], arch, price);
     }
