@@ -85,6 +85,33 @@ namespace GpuTest
         }
 
         [TestMethod]
+        [DataRow(-2)]
+        [DataRow(50)]
+        public void MemorySize_incorrect_value(int size)
+        {
+            //Arrange
+
+            //Act
+
+            //Assert
+            Assert.Throws<ArgumentException>(() => gpu.MemorySize = size);
+        }
+
+        [TestMethod]
+        public void MemorySize_correct()
+        {
+            //Arrange
+            gpu.MemorySize = 16;
+            int expected = 16;
+
+            //Act
+            int actual = gpu.MemorySize;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
         [DataRow(-20)]
         [DataRow(0)]
         public void LaunchPrice_less_then_0(double price_double)
