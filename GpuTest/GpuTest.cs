@@ -3,6 +3,7 @@ using System.Reflection;
 
 namespace GpuTest
 {
+    using Microsoft.VisualStudio.TestPlatform.ObjectModel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System.ComponentModel;
 
@@ -368,6 +369,66 @@ namespace GpuTest
             Assert.AreEqual(expected.ModelName, actual.ModelName);
             Assert.AreEqual(expected.Architecture, actual.Architecture);
             Assert.AreEqual(expected.LaunchPrice, actual.LaunchPrice);
+        }
+
+        [TestMethod]
+        [DataRow ("")]
+
+        //size
+        [DataRow("asdasd")]
+        [DataRow("asdasd;asdasd")]
+        [DataRow("asdasd;asdasd;asdasd;asdasd")]
+
+        //architecture
+        [DataRow("asdasd;;100")]
+        [DataRow("asdasd;asdasd;100")]
+        [DataRow("asdasd;20;100")]
+
+        //price
+        [DataRow("asdasd;Turing;")]
+        [DataRow("asdasd;Turing;asd")]
+
+        //name
+        [DataRow(";Turing;100")]
+        [DataRow("asd;Turing;100")]
+        [DataRow("asdasdasdaasdasdasdaasdasdasdaasdasdasdaasd;Turing;100")]
+        [DataRow("фівфів;Turing;100")]
+        [DataRow("/asdasd;Turing;100")]
+        public void TryParse_incorrect(string s)
+        {
+            //Arrange
+            Gpu parsedGpu = null;
+
+            //Act
+            bool actual = Gpu.TryParse(s, out parsedGpu);
+
+            //Assert
+            Assert.IsFalse(actual);
+            Assert.IsNull(parsedGpu);
+        }
+
+        [TestMethod]
+        public void TryParse_correct()
+        {
+            //Arrange
+            Gpu parsedGpu = null;
+            Gpu expected = new Gpu();
+            string s = "Gigabyte GeForce RTX 5060 Ti;Blackwell;470";
+
+            expected.ModelName = "Gigabyte GeForce RTX 5060 Ti";
+            expected.Architecture = GPUArchitecture.Blackwell;
+            expected.LaunchPrice = 470;
+
+            //Act
+            bool actual = Gpu.TryParse(s, out parsedGpu);
+
+            //Assert
+            Assert.IsTrue(actual);
+            Assert.IsNotNull(parsedGpu);
+
+            Assert.AreEqual(expected.ModelName, parsedGpu.ModelName);
+            Assert.AreEqual(expected.Architecture, parsedGpu.Architecture);
+            Assert.AreEqual(expected.LaunchPrice, parsedGpu.LaunchPrice);
         }
     }
 }
